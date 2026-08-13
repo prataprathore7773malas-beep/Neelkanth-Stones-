@@ -3,11 +3,6 @@
    MAIN JAVASCRIPT
 ========================================================= */
 
-
-/* =========================================================
-   DOM READY
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
@@ -26,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("enquiryForm");
 
 
-
     /* =====================================================
        PRELOADER
     ===================================================== */
@@ -42,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 700);
 
     });
-
 
 
     /* =====================================================
@@ -72,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     handleHeader();
-
 
 
     /* =====================================================
@@ -121,7 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     }
-
 
 
     /* =====================================================
@@ -175,7 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     });
-
 
 
     /* =====================================================
@@ -252,7 +242,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateActiveNav();
 
 
-
     /* =====================================================
        SCROLL REVEAL
     ===================================================== */
@@ -262,9 +251,9 @@ document.addEventListener("DOMContentLoaded", () => {
             ".section-label, " +
             ".about-content, " +
             ".about-image-wrap, " +
-            ".collection-card, " +
+            ".collection-slide, " +
             ".service-card, " +
-            ".gallery-item, " +
+            ".work-card, " +
             ".why-point, " +
             ".contact-info, " +
             ".enquiry-box, " +
@@ -330,6 +319,534 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================================
+       COLLECTION SLIDER
+       - MANUAL ARROWS
+       - AUTO SLIDE
+       - PAUSE ON HOVER
+       - MOBILE SWIPE
+       - CATEGORY FILTER
+    ===================================================== */
+
+    const collectionSlider =
+        document.querySelector(
+            ".collection-slider"
+        );
+
+    const collectionSlides =
+        collectionSlider
+            ? Array.from(
+                collectionSlider.querySelectorAll(
+                    ".collection-slide"
+                )
+            )
+            : [];
+
+    const collectionPrev =
+        document.querySelector(
+            ".collection-arrow.prev"
+        );
+
+    const collectionNext =
+        document.querySelector(
+            ".collection-arrow.next"
+        );
+
+    const collectionFilters =
+        document.querySelectorAll(
+            ".collection-filter"
+        );
+
+    const collectionCounter =
+        document.querySelector(
+            ".collection-slider-count"
+        );
+
+
+    let currentCollectionIndex = 0;
+
+    let currentCollectionFilter = "all";
+
+    let collectionTimer = null;
+
+    let collectionPaused = false;
+
+
+    /* -----------------------------------------------------
+       GET VISIBLE SLIDES
+    ----------------------------------------------------- */
+
+    function getVisibleCollectionSlides() {
+
+        if (!collectionSlider) {
+            return [];
+        }
+
+        return Array.from(
+            collectionSlider.querySelectorAll(
+                ".collection-slide:not(.is-hidden)"
+            )
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       UPDATE COUNTER
+    ----------------------------------------------------- */
+
+    function updateCollectionCounter() {
+
+        const visibleSlides =
+            getVisibleCollectionSlides();
+
+        if (!collectionCounter) return;
+
+        if (!visibleSlides.length) {
+
+            collectionCounter.textContent =
+                "0 / 0";
+
+            return;
+
+        }
+
+        let actualIndex =
+            Math.min(
+                currentCollectionIndex,
+                visibleSlides.length - 1
+            );
+
+        collectionCounter.textContent =
+            `${actualIndex + 1} / ${visibleSlides.length}`;
+
+    }
+
+
+    /* -----------------------------------------------------
+       MOVE SLIDER
+    ----------------------------------------------------- */
+
+    function moveCollectionSlider(direction) {
+
+        const visibleSlides =
+            getVisibleCollectionSlides();
+
+        if (
+            !collectionSlider ||
+            visibleSlides.length === 0
+        ) {
+            return;
+        }
+
+
+        currentCollectionIndex += direction;
+
+
+        /* Infinite loop */
+
+        if (
+            currentCollectionIndex >=
+            visibleSlides.length
+        ) {
+
+            currentCollectionIndex = 0;
+
+        }
+
+
+        if (currentCollectionIndex < 0) {
+
+            currentCollectionIndex =
+                visibleSlides.length - 1;
+
+        }
+
+
+        const targetSlide =
+            visibleSlides[currentCollectionIndex];
+
+        if (!targetSlide) return;
+
+
+        const left =
+            targetSlide.offsetLeft -
+            collectionSlider.offsetLeft;
+
+
+        collectionSlider.scrollTo({
+
+            left: left,
+
+            behavior: "smooth"
+
+        });
+
+
+        updateCollectionCounter();
+
+    }
+
+
+    /* -----------------------------------------------------
+       NEXT BUTTON
+    ----------------------------------------------------- */
+
+    if (collectionNext) {
+
+        collectionNext.addEventListener(
+            "click",
+            () => {
+
+                moveCollectionSlider(1);
+
+                restartCollectionAutoSlide();
+
+            }
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       PREVIOUS BUTTON
+    ----------------------------------------------------- */
+
+    if (collectionPrev) {
+
+        collectionPrev.addEventListener(
+            "click",
+            () => {
+
+                moveCollectionSlider(-1);
+
+                restartCollectionAutoSlide();
+
+            }
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       CATEGORY FILTER
+    ----------------------------------------------------- */
+
+    function filterCollection(category) {
+
+        currentCollectionFilter =
+            category;
+
+        currentCollectionIndex = 0;
+
+
+        collectionSlides.forEach(slide => {
+
+            const slideCategory =
+                (
+                    slide.dataset.category ||
+                    ""
+                ).toLowerCase();
+
+
+            if (
+                category === "all" ||
+                slideCategory === category
+            ) {
+
+                slide.classList.remove(
+                    "is-hidden"
+                );
+
+            } else {
+
+                slide.classList.add(
+                    "is-hidden"
+                );
+
+            }
+
+        });
+
+
+        /* Scroll back to first result */
+
+        if (collectionSlider) {
+
+            collectionSlider.scrollTo({
+
+                left: 0,
+
+                behavior: "smooth"
+
+            });
+
+        }
+
+
+        updateCollectionCounter();
+
+        restartCollectionAutoSlide();
+
+    }
+
+
+    collectionFilters.forEach(filter => {
+
+        filter.addEventListener(
+            "click",
+            () => {
+
+                collectionFilters.forEach(
+                    item => {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                filter.classList.add(
+                    "active"
+                );
+
+
+                const category =
+                    (
+                        filter.dataset.category ||
+                        "all"
+                    ).toLowerCase();
+
+
+                filterCollection(category);
+
+            }
+        );
+
+    });
+
+
+    /* -----------------------------------------------------
+       AUTO SLIDE
+       4.5 SECONDS
+    ----------------------------------------------------- */
+
+    function startCollectionAutoSlide() {
+
+        if (
+            !collectionSlider ||
+            collectionSlides.length <= 1
+        ) {
+            return;
+        }
+
+
+        stopCollectionAutoSlide();
+
+
+        collectionTimer =
+            setInterval(() => {
+
+                if (!collectionPaused) {
+
+                    moveCollectionSlider(1);
+
+                }
+
+            }, 4500);
+
+    }
+
+
+    function stopCollectionAutoSlide() {
+
+        if (collectionTimer) {
+
+            clearInterval(
+                collectionTimer
+            );
+
+            collectionTimer = null;
+
+        }
+
+    }
+
+
+    function restartCollectionAutoSlide() {
+
+        stopCollectionAutoSlide();
+
+        startCollectionAutoSlide();
+
+    }
+
+
+    /* -----------------------------------------------------
+       PAUSE ON HOVER
+    ----------------------------------------------------- */
+
+    if (collectionSlider) {
+
+        collectionSlider.addEventListener(
+            "mouseenter",
+            () => {
+
+                collectionPaused = true;
+
+            }
+        );
+
+
+        collectionSlider.addEventListener(
+            "mouseleave",
+            () => {
+
+                collectionPaused = false;
+
+            }
+        );
+
+
+        /* Touch devices */
+
+        collectionSlider.addEventListener(
+            "touchstart",
+            () => {
+
+                collectionPaused = true;
+
+            },
+            { passive: true }
+        );
+
+
+        collectionSlider.addEventListener(
+            "touchend",
+            () => {
+
+                collectionPaused = false;
+
+            },
+            { passive: true }
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       MANUAL DRAG / TOUCH SWIPE
+    ----------------------------------------------------- */
+
+    let touchStartX = 0;
+
+    let touchEndX = 0;
+
+
+    if (collectionSlider) {
+
+        collectionSlider.addEventListener(
+            "touchstart",
+            event => {
+
+                touchStartX =
+                    event.changedTouches[0].screenX;
+
+            },
+            { passive: true }
+        );
+
+
+        collectionSlider.addEventListener(
+            "touchend",
+            event => {
+
+                touchEndX =
+                    event.changedTouches[0].screenX;
+
+                handleCollectionSwipe();
+
+            },
+            { passive: true }
+        );
+
+    }
+
+
+    function handleCollectionSwipe() {
+
+        const swipeDistance =
+            touchEndX - touchStartX;
+
+
+        /* Ignore tiny movement */
+
+        if (
+            Math.abs(swipeDistance) < 50
+        ) {
+            return;
+        }
+
+
+        if (swipeDistance < 0) {
+
+            moveCollectionSlider(1);
+
+        } else {
+
+            moveCollectionSlider(-1);
+
+        }
+
+
+        restartCollectionAutoSlide();
+
+    }
+
+
+    /* -----------------------------------------------------
+       MOUSE WHEEL / TRACKPAD
+    ----------------------------------------------------- */
+
+    if (collectionSlider) {
+
+        collectionSlider.addEventListener(
+            "wheel",
+            event => {
+
+                if (
+                    Math.abs(event.deltaY) >
+                    Math.abs(event.deltaX)
+                ) {
+
+                    event.preventDefault();
+
+                    collectionSlider.scrollLeft +=
+                        event.deltaY;
+
+                }
+
+            },
+            { passive: false }
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       INITIALIZE COLLECTION
+    ----------------------------------------------------- */
+
+    if (collectionSlider && collectionSlides.length) {
+
+        updateCollectionCounter();
+
+        startCollectionAutoSlide();
+
+    }
+
 
     /* =====================================================
        BACK TO TOP
@@ -380,7 +897,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
        ENQUIRY FORM → WHATSAPP
     ===================================================== */
@@ -399,26 +915,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 const name =
                     document
                         .getElementById("name")
-                        .value
-                        .trim();
+                        ?.value
+                        .trim() || "";
+
 
                 const phone =
                     document
                         .getElementById("phone")
-                        .value
-                        .trim();
+                        ?.value
+                        .trim() || "";
+
 
                 const service =
                     document
                         .getElementById("service")
-                        .value
-                        .trim();
+                        ?.value
+                        .trim() || "";
+
 
                 const message =
                     document
                         .getElementById("message")
-                        .value
-                        .trim();
+                        ?.value
+                        .trim() || "";
 
 
                 /* Basic validation */
@@ -481,7 +1000,7 @@ Thank you.`;
                 );
 
 
-                /* Optional reset */
+                /* Reset form */
 
                 enquiryForm.reset();
 
@@ -489,7 +1008,6 @@ Thank you.`;
         );
 
     }
-
 
 
     /* =====================================================
@@ -518,7 +1036,6 @@ Thank you.`;
     }
 
 
-
     /* =====================================================
        IMAGE FALLBACK
     ===================================================== */
@@ -543,7 +1060,6 @@ Thank you.`;
     });
 
 
-
     /* =====================================================
        ESC KEY — CLOSE MOBILE MENU
     ===================================================== */
@@ -561,6 +1077,7 @@ Thank you.`;
                 mainNav.classList.remove(
                     "active"
                 );
+
 
                 if (menuBtn) {
 
@@ -581,7 +1098,6 @@ Thank you.`;
     );
 
 
-
     /* =====================================================
        PREVENT EMPTY HASH JUMP
     ===================================================== */
@@ -593,12 +1109,13 @@ Thank you.`;
             link.addEventListener(
                 "click",
                 event => {
+
                     event.preventDefault();
+
                 }
             );
 
         });
-
 
 
     /* =====================================================
@@ -620,5 +1137,16 @@ Thank you.`;
             );
 
     }
+
+
+    /* =====================================================
+       FINAL INITIALIZATION
+    ===================================================== */
+
+    updateActiveNav();
+
+    handleHeader();
+
+    handleBackToTop();
 
 });
