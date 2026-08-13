@@ -18,12 +18,8 @@
     <title>Neelkanth Stones | Jodhpur Stone Craftsmanship</title>
 
     <!-- GOOGLE FONTS -->
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet">
@@ -33,20 +29,356 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <!-- CSS -->
-    <link rel="stylesheet"
-          href="style.css">
+    <link rel="stylesheet" href="style.css">
+
+
+    <!-- =========================================================
+         COLLECTION + OUR WORK CSS
+    ========================================================== -->
+
+    <style>
+
+    .collection-filters{
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px;
+        margin:28px 0 30px;
+    }
+
+    .collection-filter{
+        border:1px solid rgba(139,94,52,.25);
+        background:#fffdf9;
+        color:#6b4528;
+        padding:10px 16px;
+        border-radius:999px;
+        font-size:11px;
+        font-weight:700;
+        letter-spacing:.4px;
+        transition:.25s;
+    }
+
+    .collection-filter span{
+        opacity:.55;
+        margin-left:4px;
+    }
+
+    .collection-filter:hover,
+    .collection-filter.active{
+        background:#2b1c12;
+        color:#fff;
+        border-color:#2b1c12;
+    }
+
+    .collection-slider-wrap{
+        position:relative;
+        display:flex;
+        align-items:center;
+        gap:16px;
+    }
+
+    .collection-slider{
+        width:100%;
+        overflow:hidden;
+        display:flex;
+        gap:18px;
+        scroll-behavior:smooth;
+        scroll-snap-type:x mandatory;
+        padding:5px 2px 15px;
+    }
+
+    .collection-slide{
+        flex:0 0 calc((100% - 36px)/3);
+        scroll-snap-align:start;
+        background:#fffdf9;
+        border:1px solid #e7ddd1;
+        border-radius:16px;
+        overflow:hidden;
+        box-shadow:0 14px 35px rgba(43,28,18,.07);
+        transition:transform .35s,box-shadow .35s;
+    }
+
+    .collection-slide:hover{
+        transform:translateY(-5px);
+        box-shadow:0 22px 45px rgba(43,28,18,.13);
+    }
+
+    .collection-slide.is-hidden{
+        display:none;
+    }
+
+    .collection-slide-image{
+        position:relative;
+        height:300px;
+        overflow:hidden;
+        background:#eee5dc;
+    }
+
+    .collection-slide-image img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+        transition:transform .7s;
+    }
+
+    .collection-slide:hover .collection-slide-image img{
+        transform:scale(1.045);
+    }
+
+    .collection-slide-count{
+        position:absolute;
+        top:14px;
+        right:14px;
+        width:34px;
+        height:34px;
+        border-radius:50%;
+        display:grid;
+        place-items:center;
+        background:rgba(43,28,18,.82);
+        color:#fff;
+        font-size:10px;
+        font-weight:800;
+    }
+
+    .collection-slide-content{
+        padding:20px 20px 22px;
+    }
+
+    .collection-slide-content>span{
+        font-size:9px;
+        letter-spacing:1.5px;
+        color:#9a7048;
+        font-weight:800;
+    }
+
+    .collection-slide-content h3{
+        font:600 25px Georgia;
+        margin:7px 0 8px;
+        color:#2b1c12;
+    }
+
+    .collection-slide-content p{
+        font-size:11px;
+        line-height:1.7;
+        color:#81766c;
+        margin:0 0 15px;
+    }
+
+    .collection-slide-content .card-link{
+        font-size:10px;
+        font-weight:800;
+        color:#6b4528;
+        text-decoration:none;
+        display:inline-flex;
+        gap:7px;
+        align-items:center;
+    }
+
+    .collection-arrow{
+        flex:0 0 44px;
+        width:44px;
+        height:44px;
+        border-radius:50%;
+        background:#2b1c12;
+        color:#fff;
+        display:grid;
+        place-items:center;
+        z-index:2;
+        box-shadow:0 8px 20px rgba(43,28,18,.18);
+    }
+
+    .collection-arrow:hover{
+        background:#8b5e34;
+    }
+
+    .collection-slider-meta{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-top:6px;
+        color:#8c7d70;
+        font-size:10px;
+    }
+
+    .collection-auto-note{
+        display:flex;
+        gap:7px;
+        align-items:center;
+    }
+
+    .collection-auto-note i{
+        color:#8b5e34;
+    }
+
+
+    /* OUR WORK */
+
+    .work-grid{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:18px;
+    }
+
+    .work-card{
+        margin:0;
+        border-radius:14px;
+        overflow:hidden;
+        background:#fffdf9;
+        border:1px solid #e7ddd1;
+        box-shadow:0 12px 30px rgba(43,28,18,.08);
+        transition:transform .35s,box-shadow .35s;
+    }
+
+    .work-card:hover{
+        transform:translateY(-6px);
+        box-shadow:0 22px 45px rgba(43,28,18,.15);
+    }
+
+    .work-image-wrap{
+        height:330px;
+        position:relative;
+        overflow:hidden;
+        background:#eee5dc;
+    }
+
+    .work-card img{
+        width:100%;
+        height:100%;
+        display:block;
+        object-fit:cover;
+        transition:transform .7s,filter .4s;
+    }
+
+    .work-card:hover img{
+        transform:scale(1.055);
+        filter:saturate(1.05);
+    }
+
+    .work-overlay{
+        position:absolute;
+        inset:auto 0 0 0;
+        padding:18px 18px 16px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        background:linear-gradient(
+            transparent,
+            rgba(25,15,9,.82)
+        );
+        color:#fff;
+        transform:translateY(5px);
+        transition:.3s;
+    }
+
+    .work-card:hover .work-overlay{
+        transform:translateY(0);
+    }
+
+    .work-overlay span{
+        font-size:9px;
+        letter-spacing:1.6px;
+        font-weight:800;
+    }
+
+    .work-overlay i{
+        font-size:12px;
+    }
+
+    .work-featured{
+        grid-column:span 2;
+    }
+
+    .work-featured .work-image-wrap{
+        height:390px;
+    }
+
+
+    @media(max-width:1000px){
+
+        .collection-slide{
+            flex-basis:calc((100% - 18px)/2);
+        }
+
+        .work-grid{
+            grid-template-columns:repeat(2,1fr);
+        }
+
+        .work-featured{
+            grid-column:span 2;
+        }
+
+    }
+
+
+    @media(max-width:760px){
+
+        .collection-filters{
+            gap:7px;
+        }
+
+        .collection-filter{
+            padding:9px 12px;
+        }
+
+        .collection-slider-wrap{
+            gap:7px;
+        }
+
+        .collection-slide{
+            flex-basis:100%;
+        }
+
+        .collection-slide-image{
+            height:330px;
+        }
+
+        .collection-arrow{
+            width:38px;
+            height:38px;
+            flex-basis:38px;
+        }
+
+        .collection-slider-meta{
+            gap:15px;
+            align-items:flex-start;
+            flex-direction:column;
+        }
+
+        .work-grid{
+            grid-template-columns:1fr;
+        }
+
+        .work-featured{
+            grid-column:auto;
+        }
+
+        .work-image-wrap,
+        .work-featured .work-image-wrap{
+            height:330px;
+        }
+
+    }
+
+    </style>
+
 </head>
 
+
 <body>
+
 
 <!-- =========================================================
      PRELOADER
 ========================================================= -->
 
 <div class="preloader" id="preloader">
+
     <div class="loader-stone"></div>
+
     <span>NEELKANTH STONES</span>
+
 </div>
+
 
 
 <!-- =========================================================
@@ -57,14 +389,13 @@
 
     <div class="container nav-container">
 
-        <!-- LOGO -->
         <a href="#home" class="brand-logo">
+
             <img src="logo.png"
                  alt="Neelkanth Stones Logo">
+
         </a>
 
-
-        <!-- DESKTOP NAVIGATION -->
 
         <nav class="main-nav" id="mainNav">
 
@@ -95,8 +426,6 @@
         </nav>
 
 
-        <!-- HEADER CTA -->
-
         <a href="#contact"
            class="nav-cta">
 
@@ -106,8 +435,6 @@
 
         </a>
 
-
-        <!-- MOBILE MENU BUTTON -->
 
         <button class="menu-btn"
                 id="menuBtn"
@@ -134,8 +461,6 @@
 <section class="hero-section"
          id="home">
 
-    <!-- HERO BACKGROUND -->
-
     <div class="hero-background">
 
         <img src="hero.png"
@@ -145,33 +470,37 @@
     </div>
 
 
-    <!-- HERO OVERLAY -->
-
     <div class="hero-overlay"></div>
 
-
-    <!-- HERO CONTENT -->
 
     <div class="container hero-container">
 
         <div class="hero-content">
 
             <span class="hero-eyebrow">
+
                 <span class="eyebrow-line"></span>
+
                 SINCE 2019 · JODHPUR, RAJASTHAN
+
             </span>
 
 
             <h1>
+
                 The Timeless
+
                 <span>Craft of Jodhpur Stone</span>
+
             </h1>
 
 
             <p class="hero-description">
+
                 Transforming natural Jodhpur stone into
                 distinctive architectural elements through
                 skilled craftsmanship and precision stone work.
+
             </p>
 
 
@@ -200,8 +529,6 @@
 
             </div>
 
-
-            <!-- HERO STATS -->
 
             <div class="hero-stats">
 
@@ -237,8 +564,6 @@
 
     </div>
 
-
-    <!-- SCROLL INDICATOR -->
 
     <a href="#about"
        class="scroll-indicator">
@@ -346,8 +671,6 @@
 
         <div class="about-grid">
 
-            <!-- IMAGE -->
-
             <div class="about-image-wrap">
 
                 <img src="about.jpeg"
@@ -366,8 +689,6 @@
             </div>
 
 
-            <!-- CONTENT -->
-
             <div class="about-content">
 
                 <span class="section-kicker">
@@ -376,26 +697,33 @@
 
 
                 <h2>
+
                     Stone That Carries
+
                     <span>the Spirit of Rajasthan.</span>
+
                 </h2>
 
 
                 <p>
+
                     Neelkanth Stones is dedicated to the
                     craftsmanship of natural Jodhpur stone,
                     creating architectural elements that
                     combine traditional character with
                     precise modern workmanship.
+
                 </p>
 
 
                 <p>
+
                     From exterior house stone work and
                     elegant pillars to gate stones and
                     detailed CNC stone carving, we shape
                     natural stone into distinctive pieces
                     designed to become part of the architecture.
+
                 </p>
 
 
@@ -408,12 +736,14 @@
                         </span>
 
                         <div>
+
                             <h4>Natural Character</h4>
 
                             <p>
                                 Every stone carries its own
                                 unique texture and character.
                             </p>
+
                         </div>
 
                     </div>
@@ -426,12 +756,14 @@
                         </span>
 
                         <div>
+
                             <h4>Precision Craftsmanship</h4>
 
                             <p>
                                 Detailed cutting, shaping,
                                 carving and engraving.
                             </p>
+
                         </div>
 
                     </div>
@@ -479,207 +811,1007 @@
 
                 </div>
 
+
                 <h2>
+
                     Crafted From
+
                     <span>Jodhpur Stone</span>
+
                 </h2>
 
             </div>
 
 
             <p>
-                Explore our range of architectural stone
-                elements crafted for homes, entrances,
-                exteriors and distinctive spaces.
+
+                Explore our complete collection of gates,
+                homes, mandir elements, pillars and windows
+                crafted in natural Jodhpur stone.
+
             </p>
 
         </div>
 
 
-        <div class="collection-grid">
+        <!-- CATEGORY FILTERS -->
 
+        <div class="collection-filters"
+             role="tablist"
+             aria-label="Collection categories">
 
-            <!-- WINDOW -->
+            <button class="collection-filter active"
+                    data-filter="All">
 
-            <article class="collection-card">
+                All <span>47</span>
 
-                <div class="collection-image">
+            </button>
 
-                    <img src="window.jpg"
-                         alt="Jodhpur Stone Windows">
 
-                    <span class="collection-number">
-                        01
-                    </span>
+            <button class="collection-filter"
+                    data-filter="Gate">
 
-                </div>
+                Gates <span>10</span>
 
+            </button>
 
-                <div class="collection-content">
 
-                    <span>ARCHITECTURAL STONE</span>
+            <button class="collection-filter"
+                    data-filter="Home">
 
-                    <h3>
-                        Stone Windows
-                    </h3>
+                Homes <span>16</span>
 
-                    <p>
-                        Distinctive Jodhpur stone window
-                        elements designed to add character
-                        and timeless appeal to architecture.
-                    </p>
+            </button>
 
 
-                    <a href="#contact"
-                       class="card-link">
+            <button class="collection-filter"
+                    data-filter="Mandir">
 
-                        Enquire Now
+                Mandir <span>6</span>
 
-                        <i class="fa-solid fa-arrow-right"></i>
+            </button>
 
-                    </a>
 
-                </div>
+            <button class="collection-filter"
+                    data-filter="Pillar">
 
-            </article>
+                Pillars <span>10</span>
 
+            </button>
 
 
-            <!-- HOUSE WORK -->
+            <button class="collection-filter"
+                    data-filter="Window">
 
-            <article class="collection-card">
+                Windows <span>5</span>
 
-                <div class="collection-image">
+            </button>
 
-                    <img src="house-work.jpg"
-                         alt="Jodhpur Stone House Exterior Work">
+        </div>
 
-                    <span class="collection-number">
-                        02
-                    </span>
 
-                </div>
+        <!-- COLLECTION SLIDER -->
 
+        <div class="collection-slider-wrap">
 
-                <div class="collection-content">
+            <button class="collection-arrow collection-prev"
+                    type="button"
+                    aria-label="Previous collection image">
 
-                    <span>EXTERIOR STONE WORK</span>
+                <i class="fa-solid fa-arrow-left"></i>
 
-                    <h3>
-                        House Stone Work
-                    </h3>
+            </button>
 
-                    <p>
-                        Natural stone applications for
-                        exterior walls, façades and
-                        architectural surfaces.
-                    </p>
 
+            <div class="collection-slider"
+                 id="collectionSlider">
 
-                    <a href="#contact"
-                       class="card-link">
 
-                        Enquire Now
+                <!-- =========================
+                     GATE 01
+                ========================== -->
 
-                        <i class="fa-solid fa-arrow-right"></i>
+                <article class="collection-slide"
+                         data-category="Gate">
 
-                    </a>
+                    <div class="collection-slide-image">
 
-                </div>
+                        <img src="gate1.jpeg"
+                             alt="Neelkanth Stones Gate Stone Work 1"
+                             loading="lazy">
 
-            </article>
+                        <span class="collection-slide-count">
+                            01
+                        </span>
 
+                    </div>
 
+                    <div class="collection-slide-content">
 
-            <!-- PILLARS -->
+                        <span>
+                            GATE · JODHPUR STONE
+                        </span>
 
-            <article class="collection-card">
+                        <h3>
+                            Gate Stone Work
+                        </h3>
 
-                <div class="collection-image">
+                        <p>
+                            Premium natural Jodhpur stone
+                            craftsmanship created for distinctive
+                            entrances.
+                        </p>
 
-                    <img src="pillars.jpg"
-                         alt="Jodhpur Stone Pillars">
+                        <a href="#contact"
+                           class="card-link">
 
-                    <span class="collection-number">
-                        03
-                    </span>
+                            Enquire Now
 
-                </div>
+                            <i class="fa-solid fa-arrow-right"></i>
 
+                        </a>
 
-                <div class="collection-content">
+                    </div>
 
-                    <span>ARCHITECTURAL ELEMENTS</span>
+                </article>
 
-                    <h3>
-                        Stone Pillars
-                    </h3>
 
-                    <p>
-                        Strong and elegant stone pillars
-                        crafted to create a distinctive
-                        architectural presence.
-                    </p>
+                <article class="collection-slide"
+                         data-category="Gate">
 
+                    <div class="collection-slide-image">
 
-                    <a href="#contact"
-                       class="card-link">
+                        <img src="gate2.jpeg"
+                             alt="Neelkanth Stones Gate Stone Work 2"
+                             loading="lazy">
 
-                        Enquire Now
+                        <span class="collection-slide-count">
+                            02
+                        </span>
 
-                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
 
-                    </a>
+                    <div class="collection-slide-content">
 
-                </div>
+                        <span>GATE · JODHPUR STONE</span>
 
-            </article>
+                        <h3>Gate Stone Work</h3>
 
+                        <p>
+                            Elegant stone entrance elements
+                            crafted for timeless architecture.
+                        </p>
 
+                        <a href="#contact" class="card-link">
+                            Enquire Now
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
-            <!-- GATE STONES -->
+                    </div>
 
-            <article class="collection-card">
+                </article>
 
-                <div class="collection-image">
 
-                    <img src="gate.jpg"
-                         alt="Jodhpur Stone Gate Work">
+                <article class="collection-slide"
+                         data-category="Gate">
 
-                    <span class="collection-number">
-                        04
-                    </span>
+                    <div class="collection-slide-image">
 
-                </div>
+                        <img src="gate3.jpeg"
+                             alt="Neelkanth Stones Gate Stone Work 3"
+                             loading="lazy">
 
+                        <span class="collection-slide-count">
+                            03
+                        </span>
 
-                <div class="collection-content">
+                    </div>
 
-                    <span>ENTRANCE STONE WORK</span>
+                    <div class="collection-slide-content">
 
-                    <h3>
-                        Gate Stones
-                    </h3>
+                        <span>GATE · JODHPUR STONE</span>
 
-                    <p>
-                        Premium stone elements for gates
-                        and entrances, crafted to create
-                        a powerful first impression.
-                    </p>
+                        <h3>Gate Stone Work</h3>
 
+                        <p>
+                            Refined architectural stone details
+                            for premium entrances.
+                        </p>
 
-                    <a href="#contact"
-                       class="card-link">
+                        <a href="#contact" class="card-link">
+                            Enquire Now
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
-                        Enquire Now
+                    </div>
 
-                        <i class="fa-solid fa-arrow-right"></i>
+                </article>
 
-                    </a>
 
-                </div>
+                <article class="collection-slide"
+                         data-category="Gate">
 
-            </article>
+                    <div class="collection-slide-image">
+
+                        <img src="gate4.jpeg"
+                             alt="Neelkanth Stones Gate Stone Work 4"
+                             loading="lazy">
+
+                        <span class="collection-slide-count">
+                            04
+                        </span>
+
+                    </div>
+
+                    <div class="collection-slide-content">
+
+                        <span>GATE · JODHPUR STONE</span>
+
+                        <h3>Gate Stone Work</h3>
+
+                        <p>
+                            Custom natural stone craftsmanship
+                            for entrances and gateways.
+                        </p>
+
+                        <a href="#contact" class="card-link">
+                            Enquire Now
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <article class="collection-slide"
+                         data-category="Gate">
+
+                    <div class="collection-slide-image">
+
+                        <img src="gate5.jpeg"
+                             alt="Neelkanth Stones Gate Stone Work 5"
+                             loading="lazy">
+
+                        <span class="collection-slide-count">
+                            05
+                        </span>
+
+                    </div>
+
+                    <div class="collection-slide-content">
+
+                        <span>GATE · JODHPUR STONE</span>
+
+                        <h3>Gate Stone Work</h3>
+
+                        <p>
+                            Architectural gate stone elements
+                            made with precision.
+                        </p>
+
+                        <a href="#contact" class="card-link">
+                            Enquire Now
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <article class="collection-slide"
+                         data-category="Gate">
+
+                    <div class="collection-slide-image">
+
+                        <img src="gate6.jpeg"
+                             alt="Neelkanth Stones Gate Stone Work 6"
+                             loading="lazy">
+
+                        <span class="collection-slide-count">
+                            06
+                        </span>
+
+                    </div>
+
+                    <div class="collection-slide-content">
+
+                        <span>GATE · JODHPUR STONE</span>
+
+                        <h3>Gate Stone Work</h3>
+
+                        <p>
+                            Distinctive natural stone entrance
+                            designs for modern homes.
+                        </p>
+
+                        <a href="#contact" class="card-link">
+                            Enquire Now
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <article class="collection-slide"
+                         data-category="Gate">
+
+                    <div class="collection-slide-image">
+
+                        <img src="gate7.jpeg"
+                             alt="Neelkanth Stones Gate Stone Work 7"
+                             loading="lazy">
+
+                        <span class="collection-slide-count">
+                            07
+                        </span>
+
+                    </div>
+
+                    <div class="collection-slide-content">
+
+                        <span>GATE · JODHPUR STONE</span>
+
+                        <h3>Gate Stone Work</h3>
+
+                        <p>
+                            Premium gate framing and stone
+                            architectural detailing.
+                        </p>
+
+                        <a href="#contact" class="card-link">
+                            Enquire Now
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <article class="collection-slide"
+                         data-category="Gate">
+
+                    <div class="collection-slide-image">
+
+                        <img src="gate8.jpeg"
+                             alt="Neelkanth Stones Gate Stone Work 8"
+                             loading="lazy">
+
+                        <span class="collection-slide-count">
+                            08
+                        </span>
+
+                    </div>
+
+                    <div class="collection-slide-content">
+
+                        <span>GATE · JODHPUR STONE</span>
+
+                        <h3>Gate Stone Work</h3>
+
+                        <p>
+                            Detailed gate stone work with
+                            traditional Jodhpur character.
+                        </p>
+
+                        <a href="#contact" class="card-link">
+                            Enquire Now
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <article class="collection-slide"
+                         data-category="Gate">
+
+                    <div class="collection-slide-image">
+
+                        <img src="gate9.jpeg"
+                             alt="Neelkanth Stones Gate Stone Work 9"
+                             loading="lazy">
+
+                        <span class="collection-slide-count">
+                            09
+                        </span>
+
+                    </div>
+
+                    <div class="collection-slide-content">
+
+                        <span>GATE · JODHPUR STONE</span>
+
+                        <h3>Gate Stone Work</h3>
+
+                        <p>
+                            Carefully crafted stone details
+                            for impressive entrances.
+                        </p>
+
+                        <a href="#contact" class="card-link">
+                            Enquire Now
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <article class="collection-slide"
+                         data-category="Gate">
+
+                    <div class="collection-slide-image">
+
+                        <img src="gate10.jpeg"
+                             alt="Neelkanth Stones Gate Stone Work 10"
+                             loading="lazy">
+
+                        <span class="collection-slide-count">
+                            10
+                        </span>
+
+                    </div>
+
+                    <div class="collection-slide-content">
+
+                        <span>GATE · JODHPUR STONE</span>
+
+                        <h3>Gate Stone Work</h3>
+
+                        <p>
+                            Natural stone entrance craftsmanship
+                            designed for lasting appeal.
+                        </p>
+
+                        <a href="#contact" class="card-link">
+                            Enquire Now
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =========================
+                     HOME 01-16
+                ========================== -->
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home1.jpeg" alt="Neelkanth Stones Home Stone Work 1" loading="lazy">
+                        <span class="collection-slide-count">11</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Natural stone applications for premium residential architecture.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home2.jpeg" alt="Neelkanth Stones Home Stone Work 2" loading="lazy">
+                        <span class="collection-slide-count">12</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Elegant Jodhpur stone exterior work crafted for distinctive homes.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home3.jpeg" alt="Neelkanth Stones Home Stone Work 3" loading="lazy">
+                        <span class="collection-slide-count">13</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Architectural stone work designed around the character of the building.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home4.jpeg" alt="Neelkanth Stones Home Stone Work 4" loading="lazy">
+                        <span class="collection-slide-count">14</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Refined natural stone applications for elegant residential spaces.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home5.jpeg" alt="Neelkanth Stones Home Stone Work 5" loading="lazy">
+                        <span class="collection-slide-count">15</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Premium façade and exterior stone craftsmanship.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home6.jpeg" alt="Neelkanth Stones Home Stone Work 6" loading="lazy">
+                        <span class="collection-slide-count">16</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Custom stone details for premium house elevations.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home7.jpeg" alt="Neelkanth Stones Home Stone Work 7" loading="lazy">
+                        <span class="collection-slide-count">17</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Traditional stone character combined with clean architectural lines.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home8.jpeg" alt="Neelkanth Stones Home Stone Work 8" loading="lazy">
+                        <span class="collection-slide-count">18</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Natural stone façade work with a timeless Jodhpur aesthetic.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home9.jpeg" alt="Neelkanth Stones Home Stone Work 9" loading="lazy">
+                        <span class="collection-slide-count">19</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Distinctive architectural stone elements for residential projects.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home10.jpeg" alt="Neelkanth Stones Home Stone Work 10" loading="lazy">
+                        <span class="collection-slide-count">20</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Custom exterior stone work shaped to suit each project.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home11.jpeg" alt="Neelkanth Stones Home Stone Work 11" loading="lazy">
+                        <span class="collection-slide-count">21</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Premium stone façade craftsmanship with detailed finishing.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home12.jpeg" alt="Neelkanth Stones Home Stone Work 12" loading="lazy">
+                        <span class="collection-slide-count">22</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Elegant residential stone work inspired by Rajasthan architecture.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home13.jpeg" alt="Neelkanth Stones Home Stone Work 13" loading="lazy">
+                        <span class="collection-slide-count">23</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Detailed natural stone work for refined home exteriors.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home14.jpeg" alt="Neelkanth Stones Home Stone Work 14" loading="lazy">
+                        <span class="collection-slide-count">24</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Custom architectural stone detailing for residential projects.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home15.jpeg" alt="Neelkanth Stones Home Stone Work 15" loading="lazy">
+                        <span class="collection-slide-count">25</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Timeless stone architecture with precise craftsmanship.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Home">
+                    <div class="collection-slide-image">
+                        <img src="home16.jpeg" alt="Neelkanth Stones Home Stone Work 16" loading="lazy">
+                        <span class="collection-slide-count">26</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>HOME · JODHPUR STONE</span>
+                        <h3>House Stone Work</h3>
+                        <p>Natural Jodhpur stone elements crafted for distinctive homes.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+
+
+                <!-- =========================
+                     MANDIR 01-06
+                ========================== -->
+
+                <article class="collection-slide" data-category="Mandir">
+                    <div class="collection-slide-image">
+                        <img src="mandir1.jpeg" alt="Neelkanth Stones Mandir Stone Work 1" loading="lazy">
+                        <span class="collection-slide-count">27</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>MANDIR · JODHPUR STONE</span>
+                        <h3>Mandir Stone Work</h3>
+                        <p>Detailed stone craftsmanship for traditional and elegant mandir spaces.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Mandir">
+                    <div class="collection-slide-image">
+                        <img src="mandir2.jpeg" alt="Neelkanth Stones Mandir Stone Work 2" loading="lazy">
+                        <span class="collection-slide-count">28</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>MANDIR · JODHPUR STONE</span>
+                        <h3>Mandir Stone Work</h3>
+                        <p>Architectural stone elements created with traditional character.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Mandir">
+                    <div class="collection-slide-image">
+                        <img src="mandir3.jpeg" alt="Neelkanth Stones Mandir Stone Work 3" loading="lazy">
+                        <span class="collection-slide-count">29</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>MANDIR · JODHPUR STONE</span>
+                        <h3>Mandir Stone Work</h3>
+                        <p>Refined carved stone details for spiritual and architectural spaces.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Mandir">
+                    <div class="collection-slide-image">
+                        <img src="mandir4.jpeg" alt="Neelkanth Stones Mandir Stone Work 4" loading="lazy">
+                        <span class="collection-slide-count">30</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>MANDIR · JODHPUR STONE</span>
+                        <h3>Mandir Stone Work</h3>
+                        <p>Custom natural stone mandir craftsmanship with detailed finishes.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Mandir">
+                    <div class="collection-slide-image">
+                        <img src="mandir5.jpeg" alt="Neelkanth Stones Mandir Stone Work 5" loading="lazy">
+                        <span class="collection-slide-count">31</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>MANDIR · JODHPUR STONE</span>
+                        <h3>Mandir Stone Work</h3>
+                        <p>Traditional stone design combined with precise modern craftsmanship.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Mandir">
+                    <div class="collection-slide-image">
+                        <img src="mandir6.jpeg" alt="Neelkanth Stones Mandir Stone Work 6" loading="lazy">
+                        <span class="collection-slide-count">32</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>MANDIR · JODHPUR STONE</span>
+                        <h3>Mandir Stone Work</h3>
+                        <p>Premium stone elements crafted for beautiful mandir architecture.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+
+
+                <!-- =========================
+                     PILLAR 01-10
+                ========================== -->
+
+                <article class="collection-slide" data-category="Pillar">
+                    <div class="collection-slide-image">
+                        <img src="pillar1.jpeg" alt="Neelkanth Stones Pillar Stone Work 1" loading="lazy">
+                        <span class="collection-slide-count">33</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>PILLAR · JODHPUR STONE</span>
+                        <h3>Stone Pillars</h3>
+                        <p>Elegant architectural pillars crafted from natural Jodhpur stone.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Pillar">
+                    <div class="collection-slide-image">
+                        <img src="pillar2.jpeg" alt="Neelkanth Stones Pillar Stone Work 2" loading="lazy">
+                        <span class="collection-slide-count">34</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>PILLAR · JODHPUR STONE</span>
+                        <h3>Stone Pillars</h3>
+                        <p>Decorative stone pillars designed to add architectural character.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Pillar">
+                    <div class="collection-slide-image">
+                        <img src="pillar3.jpeg" alt="Neelkanth Stones Pillar Stone Work 3" loading="lazy">
+                        <span class="collection-slide-count">35</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>PILLAR · JODHPUR STONE</span>
+                        <h3>Stone Pillars</h3>
+                        <p>Detailed pillar craftsmanship for entrances and architectural spaces.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Pillar">
+                    <div class="collection-slide-image">
+                        <img src="pillar4.jpeg" alt="Neelkanth Stones Pillar Stone Work 4" loading="lazy">
+                        <span class="collection-slide-count">36</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>PILLAR · JODHPUR STONE</span>
+                        <h3>Stone Pillars</h3>
+                        <p>Strong and elegant natural stone pillars for premium architecture.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Pillar">
+                    <div class="collection-slide-image">
+                        <img src="pillar5.jpeg" alt="Neelkanth Stones Pillar Stone Work 5" loading="lazy">
+                        <span class="collection-slide-count">37</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>PILLAR · JODHPUR STONE</span>
+                        <h3>Stone Pillars</h3>
+                        <p>Custom carved pillars designed around project requirements.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Pillar">
+                    <div class="collection-slide-image">
+                        <img src="pillar6.jpeg" alt="Neelkanth Stones Pillar Stone Work 6" loading="lazy">
+                        <span class="collection-slide-count">38</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>PILLAR · JODHPUR STONE</span>
+                        <h3>Stone Pillars</h3>
+                        <p>Traditional stone pillar profiles with precise finishing.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Pillar">
+                    <div class="collection-slide-image">
+                        <img src="pillar7.jpeg" alt="Neelkanth Stones Pillar Stone Work 7" loading="lazy">
+                        <span class="collection-slide-count">39</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>PILLAR · JODHPUR STONE</span>
+                        <h3>Stone Pillars</h3>
+                        <p>Architectural stone pillars with distinctive natural texture.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Pillar">
+                    <div class="collection-slide-image">
+                        <img src="pillar8.jpeg" alt="Neelkanth Stones Pillar Stone Work 8" loading="lazy">
+                        <span class="collection-slide-count">40</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>PILLAR · JODHPUR STONE</span>
+                        <h3>Stone Pillars</h3>
+                        <p>Refined natural stone pillars for elegant exterior spaces.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Pillar">
+                    <div class="collection-slide-image">
+                        <img src="pillar9.jpeg" alt="Neelkanth Stones Pillar Stone Work 9" loading="lazy">
+                        <span class="collection-slide-count">41</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>PILLAR · JODHPUR STONE</span>
+                        <h3>Stone Pillars</h3>
+                        <p>Detailed pillar elements created for distinctive architecture.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Pillar">
+                    <div class="collection-slide-image">
+                        <img src="pillar10.jpeg" alt="Neelkanth Stones Pillar Stone Work 10" loading="lazy">
+                        <span class="collection-slide-count">42</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>PILLAR · JODHPUR STONE</span>
+                        <h3>Stone Pillars</h3>
+                        <p>Premium stone pillar craftsmanship with architectural detail.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+
+
+                <!-- =========================
+                     WINDOW 01-05
+                ========================== -->
+
+                <article class="collection-slide" data-category="Window">
+                    <div class="collection-slide-image">
+                        <img src="window1.jpeg" alt="Neelkanth Stones Window Stone Work 1" loading="lazy">
+                        <span class="collection-slide-count">43</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>WINDOW · JODHPUR STONE</span>
+                        <h3>Stone Windows</h3>
+                        <p>Distinctive Jodhpur stone window elements for timeless architecture.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Window">
+                    <div class="collection-slide-image">
+                        <img src="window2.jpeg" alt="Neelkanth Stones Window Stone Work 2" loading="lazy">
+                        <span class="collection-slide-count">44</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>WINDOW · JODHPUR STONE</span>
+                        <h3>Stone Windows</h3>
+                        <p>Elegant stone window frames crafted for premium homes.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Window">
+                    <div class="collection-slide-image">
+                        <img src="window3.jpeg" alt="Neelkanth Stones Window Stone Work 3" loading="lazy">
+                        <span class="collection-slide-count">45</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>WINDOW · JODHPUR STONE</span>
+                        <h3>Stone Windows</h3>
+                        <p>Detailed architectural window stone work with traditional character.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Window">
+                    <div class="collection-slide-image">
+                        <img src="window4.jpeg" alt="Neelkanth Stones Window Stone Work 4" loading="lazy">
+                        <span class="collection-slide-count">46</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>WINDOW · JODHPUR STONE</span>
+                        <h3>Stone Windows</h3>
+                        <p>Custom window stone elements with refined detailing.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="collection-slide" data-category="Window">
+                    <div class="collection-slide-image">
+                        <img src="window5.jpeg" alt="Neelkanth Stones Window Stone Work 5" loading="lazy">
+                        <span class="collection-slide-count">47</span>
+                    </div>
+                    <div class="collection-slide-content">
+                        <span>WINDOW · JODHPUR STONE</span>
+                        <h3>Stone Windows</h3>
+                        <p>Premium natural stone window craftsmanship for distinctive spaces.</p>
+                        <a href="#contact" class="card-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+
+            </div>
+
+
+            <button class="collection-arrow collection-next"
+                    type="button"
+                    aria-label="Next collection image">
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="collection-slider-meta">
+
+            <span id="collectionCounter">
+                01 / 47
+            </span>
+
+            <span class="collection-auto-note">
+
+                <i class="fa-solid fa-circle-play"></i>
+
+                Auto sliding · Manual controls available
+
+            </span>
 
         </div>
 
@@ -710,14 +1842,20 @@
         <div class="services-heading">
 
             <h2>
+
                 Precision Meets
+
                 <span>Stone Craft.</span>
+
             </h2>
 
+
             <p>
+
                 From precise cutting to intricate carving
                 and engraving, our stone services bring
                 detail and definition to natural stone.
+
             </p>
 
         </div>
@@ -726,13 +1864,9 @@
         <div class="services-grid">
 
 
-            <!-- SERVICE 01 -->
-
             <article class="service-card">
 
-                <span class="service-number">
-                    01
-                </span>
+                <span class="service-number">01</span>
 
                 <div class="service-icon">
                     <i class="fa-solid fa-cubes"></i>
@@ -756,14 +1890,9 @@
             </article>
 
 
-
-            <!-- SERVICE 02 -->
-
             <article class="service-card">
 
-                <span class="service-number">
-                    02
-                </span>
+                <span class="service-number">02</span>
 
                 <div class="service-icon">
                     <i class="fa-solid fa-pen-ruler"></i>
@@ -787,14 +1916,9 @@
             </article>
 
 
-
-            <!-- SERVICE 03 -->
-
             <article class="service-card">
 
-                <span class="service-number">
-                    03
-                </span>
+                <span class="service-number">03</span>
 
                 <div class="service-icon">
                     <i class="fa-solid fa-scissors"></i>
@@ -818,14 +1942,9 @@
             </article>
 
 
-
-            <!-- SERVICE 04 -->
-
             <article class="service-card">
 
-                <span class="service-number">
-                    04
-                </span>
+                <span class="service-number">04</span>
 
                 <div class="service-icon">
                     <i class="fa-solid fa-draw-polygon"></i>
@@ -849,14 +1968,9 @@
             </article>
 
 
-
-            <!-- SERVICE 05 -->
-
             <article class="service-card">
 
-                <span class="service-number">
-                    05
-                </span>
+                <span class="service-number">05</span>
 
                 <div class="service-icon">
                     <i class="fa-solid fa-border-all"></i>
@@ -880,14 +1994,9 @@
             </article>
 
 
-
-            <!-- SERVICE 06 -->
-
             <article class="service-card">
 
-                <span class="service-number">
-                    06
-                </span>
+                <span class="service-number">06</span>
 
                 <div class="service-icon">
                     <i class="fa-solid fa-building-columns"></i>
@@ -911,14 +2020,9 @@
             </article>
 
 
-
-            <!-- SERVICE 07 -->
-
             <article class="service-card">
 
-                <span class="service-number">
-                    07
-                </span>
+                <span class="service-number">07</span>
 
                 <div class="service-icon">
                     <i class="fa-solid fa-gears"></i>
@@ -942,14 +2046,9 @@
             </article>
 
 
-
-            <!-- SERVICE 08 -->
-
             <article class="service-card">
 
-                <span class="service-number">
-                    08
-                </span>
+                <span class="service-number">08</span>
 
                 <div class="service-icon">
                     <i class="fa-solid fa-hammer"></i>
@@ -973,14 +2072,9 @@
             </article>
 
 
-
-            <!-- SERVICE 09 -->
-
             <article class="service-card">
 
-                <span class="service-number">
-                    09
-                </span>
+                <span class="service-number">09</span>
 
                 <div class="service-icon">
                     <i class="fa-solid fa-monument"></i>
@@ -1004,14 +2098,9 @@
             </article>
 
 
-
-            <!-- SERVICE 10 -->
-
             <article class="service-card">
 
-                <span class="service-number">
-                    10
-                </span>
+                <span class="service-number">10</span>
 
                 <div class="service-icon">
                     <i class="fa-solid fa-vector-square"></i>
@@ -1033,6 +2122,7 @@
                 </a>
 
             </article>
+
 
         </div>
 
@@ -1059,15 +2149,20 @@
             </span>
 
             <h2>
+
                 From Raw Stone
+
                 <span>to Refined Craft.</span>
+
             </h2>
 
             <p>
+
                 We respect the natural character of stone
                 while using precision techniques to shape
                 it into architectural elements with lasting
                 visual appeal.
+
             </p>
 
             <a href="#contact"
@@ -1088,7 +2183,7 @@
 
 
 <!-- =========================================================
-     GALLERY SECTION
+     GALLERY / OUR WORK SECTION
 ========================================================= -->
 
 <section class="gallery-section section-padding"
@@ -1109,61 +2204,169 @@
                 </div>
 
                 <h2>
+
                     Stone in
+
                     <span>Every Detail.</span>
+
                 </h2>
 
             </div>
 
 
             <p>
-                A glimpse into our stone craftsmanship,
-                architectural work and precision services.
+
+                A selected glimpse into our finished stone
+                craftsmanship, architectural work and
+                detailed CNC creations.
+
             </p>
 
         </div>
 
 
-        <div class="gallery-grid">
+        <!-- 6 WORK IMAGES -->
 
-            <div class="gallery-item gallery-large">
-
-                <img src="gallery1.jpg"
-                     alt="Neelkanth Stones Jodhpur Stone Work">
-
-            </div>
+        <div class="work-grid">
 
 
-            <div class="gallery-item">
+            <article class="work-card work-featured">
 
-                <img src="gallery2.jpg"
-                     alt="Jodhpur Stone Craft">
+                <div class="work-image-wrap">
 
-            </div>
+                    <img src="work.jpeg"
+                         alt="Neelkanth Stones completed stone work 1"
+                         loading="lazy">
+
+                    <div class="work-overlay">
+
+                        <span>
+                            OUR WORK · 01
+                        </span>
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </div>
+
+                </div>
+
+            </article>
 
 
-            <div class="gallery-item">
+            <article class="work-card">
 
-                <img src="gallery3.jpg"
-                     alt="Natural Stone Work">
+                <div class="work-image-wrap">
 
-            </div>
+                    <img src="work1.jpeg"
+                         alt="Neelkanth Stones completed stone work 2"
+                         loading="lazy">
+
+                    <div class="work-overlay">
+
+                        <span>
+                            OUR WORK · 02
+                        </span>
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </div>
+
+                </div>
+
+            </article>
 
 
-            <div class="gallery-item">
+            <article class="work-card">
 
-                <img src="gallery4.jpg"
-                     alt="CNC Stone Carving">
+                <div class="work-image-wrap">
 
-            </div>
+                    <img src="work2.jpeg"
+                         alt="Neelkanth Stones completed stone work 3"
+                         loading="lazy">
+
+                    <div class="work-overlay">
+
+                        <span>
+                            OUR WORK · 03
+                        </span>
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </div>
+
+                </div>
+
+            </article>
 
 
-            <div class="gallery-item gallery-wide">
+            <article class="work-card">
 
-                <img src="gallery5.jpg"
-                     alt="Jodhpur Stone Architecture">
+                <div class="work-image-wrap">
 
-            </div>
+                    <img src="work3.jpeg"
+                         alt="Neelkanth Stones completed stone work 4"
+                         loading="lazy">
+
+                    <div class="work-overlay">
+
+                        <span>
+                            OUR WORK · 04
+                        </span>
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="work-card">
+
+                <div class="work-image-wrap">
+
+                    <img src="work4.jpeg"
+                         alt="Neelkanth Stones completed stone work 5"
+                         loading="lazy">
+
+                    <div class="work-overlay">
+
+                        <span>
+                            OUR WORK · 05
+                        </span>
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="work-card">
+
+                <div class="work-image-wrap">
+
+                    <img src="work5.jpeg"
+                         alt="Neelkanth Stones completed stone work 6"
+                         loading="lazy">
+
+                    <div class="work-overlay">
+
+                        <span>
+                            OUR WORK · 06
+                        </span>
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </div>
+
+                </div>
+
+            </article>
+
 
         </div>
 
@@ -1195,16 +2398,21 @@
 
 
                 <h2>
+
                     Built Around
+
                     <span>Stone.</span>
+
                 </h2>
 
 
                 <p>
+
                     Our work combines the natural beauty of
                     Jodhpur stone with craftsmanship and
                     precision to create architectural elements
                     made to stand the test of time.
+
                 </p>
 
             </div>
@@ -1315,8 +2523,6 @@
         <div class="contact-wrapper">
 
 
-            <!-- CONTACT INFORMATION -->
-
             <div class="contact-info">
 
                 <div class="section-label">
@@ -1329,29 +2535,34 @@
 
 
                 <h2>
+
                     Let's Create
+
                     <span>Something in Stone.</span>
+
                 </h2>
 
 
                 <p>
+
                     Looking for Jodhpur stone work, custom
                     stone elements or CNC stone services?
                     Tell us about your requirement and
                     our team will get in touch with you.
+
                 </p>
 
 
                 <div class="contact-details">
 
 
-                    <!-- PHONE -->
-
                     <a href="tel:+918619201942"
                        class="contact-detail">
 
                         <span class="contact-icon">
+
                             <i class="fa-solid fa-phone"></i>
+
                         </span>
 
                         <div>
@@ -1367,16 +2578,15 @@
                     </a>
 
 
-
-                    <!-- WHATSAPP -->
-
                     <a href="https://wa.me/918619201942"
                        target="_blank"
                        rel="noopener"
                        class="contact-detail">
 
                         <span class="contact-icon whatsapp-icon">
+
                             <i class="fa-brands fa-whatsapp"></i>
+
                         </span>
 
                         <div>
@@ -1392,13 +2602,12 @@
                     </a>
 
 
-
-                    <!-- LOCATION -->
-
                     <div class="contact-detail">
 
                         <span class="contact-icon">
+
                             <i class="fa-solid fa-location-dot"></i>
+
                         </span>
 
                         <div>
@@ -1419,8 +2628,6 @@
             </div>
 
 
-
-            <!-- ENQUIRY FORM -->
 
             <div class="enquiry-box">
 
@@ -1588,13 +2795,18 @@
             </span>
 
             <h2>
+
                 Let Your Architecture
+
                 <span>Speak in Stone.</span>
+
             </h2>
 
             <p>
+
                 Connect with Neelkanth Stones for your
                 next stone project in Jodhpur.
+
             </p>
 
 
@@ -1644,8 +2856,6 @@
         <div class="footer-main">
 
 
-            <!-- FOOTER BRAND -->
-
             <div class="footer-brand">
 
                 <a href="#home">
@@ -1656,9 +2866,11 @@
                 </a>
 
                 <p>
+
                     Premium Jodhpur stone craftsmanship,
                     architectural stone work and precision
                     CNC stone services from Jodhpur, Rajasthan.
+
                 </p>
 
 
@@ -1689,8 +2901,6 @@
 
 
 
-            <!-- FOOTER LINKS -->
-
             <div class="footer-column">
 
                 <h4>
@@ -1716,8 +2926,6 @@
             </div>
 
 
-
-            <!-- FOOTER SERVICES -->
 
             <div class="footer-column">
 
@@ -1745,8 +2953,6 @@
 
 
 
-            <!-- FOOTER CONTACT -->
-
             <div class="footer-column footer-contact">
 
                 <h4>
@@ -1769,8 +2975,6 @@
 
         </div>
 
-
-        <!-- FOOTER BOTTOM -->
 
         <div class="footer-bottom">
 
@@ -1799,8 +3003,6 @@
 <div class="floating-actions">
 
 
-    <!-- CALL -->
-
     <a href="tel:+918619201942"
        class="floating-btn call-btn"
        aria-label="Call Neelkanth Stones">
@@ -1811,8 +3013,6 @@
 
     </a>
 
-
-    <!-- WHATSAPP -->
 
     <a href="https://wa.me/918619201942"
        class="floating-btn whatsapp-btn"
@@ -1845,10 +3045,348 @@
 
 
 <!-- =========================================================
-     JAVASCRIPT
+     COLLECTION SLIDER JAVASCRIPT
 ========================================================= -->
 
+<script>
+
+(function(){
+
+    const slider =
+        document.getElementById("collectionSlider");
+
+    if(!slider) return;
+
+
+    const allSlides =
+        Array.from(
+            slider.querySelectorAll(".collection-slide")
+        );
+
+
+    const filters =
+        Array.from(
+            document.querySelectorAll(".collection-filter")
+        );
+
+
+    const prev =
+        document.querySelector(".collection-prev");
+
+
+    const next =
+        document.querySelector(".collection-next");
+
+
+    const counter =
+        document.getElementById("collectionCounter");
+
+
+    let visible = [];
+
+    let index = 0;
+
+    let timer = null;
+
+    let dragging = false;
+
+    let startX = 0;
+
+    let scrollStart = 0;
+
+
+
+    function rebuild(category){
+
+        visible =
+            allSlides.filter(function(slide){
+
+                return category === "All" ||
+                       slide.dataset.category === category;
+
+            });
+
+
+        allSlides.forEach(function(slide){
+
+            slide.classList.toggle(
+                "is-hidden",
+                !visible.includes(slide)
+            );
+
+        });
+
+
+        index = 0;
+
+        requestAnimationFrame(function(){
+
+            show(index);
+
+        });
+
+    }
+
+
+
+    function show(i){
+
+        if(!visible.length) return;
+
+
+        index =
+            (i + visible.length) %
+            visible.length;
+
+
+        const target =
+            visible[index];
+
+
+        slider.scrollTo({
+
+            left:
+                target.offsetLeft -
+                slider.offsetLeft -
+                2,
+
+            behavior:"smooth"
+
+        });
+
+
+        if(counter){
+
+            counter.textContent =
+                String(index + 1).padStart(2,"0") +
+                " / " +
+                String(visible.length).padStart(2,"0");
+
+        }
+
+    }
+
+
+
+    function startAuto(){
+
+        clearInterval(timer);
+
+        timer =
+            setInterval(function(){
+
+                show(index + 1);
+
+            },4500);
+
+    }
+
+
+
+    function stopAuto(){
+
+        clearInterval(timer);
+
+    }
+
+
+
+    filters.forEach(function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                filters.forEach(function(btn){
+
+                    btn.classList.remove("active");
+
+                });
+
+
+                button.classList.add("active");
+
+
+                rebuild(
+                    button.dataset.filter
+                );
+
+
+                startAuto();
+
+            }
+        );
+
+    });
+
+
+
+    if(prev){
+
+        prev.addEventListener(
+            "click",
+            function(){
+
+                show(index - 1);
+
+                startAuto();
+
+            }
+        );
+
+    }
+
+
+
+    if(next){
+
+        next.addEventListener(
+            "click",
+            function(){
+
+                show(index + 1);
+
+                startAuto();
+
+            }
+        );
+
+    }
+
+
+
+    slider.addEventListener(
+        "mouseenter",
+        stopAuto
+    );
+
+
+    slider.addEventListener(
+        "mouseleave",
+        startAuto
+    );
+
+
+
+    slider.addEventListener(
+        "touchstart",
+        function(event){
+
+            dragging = true;
+
+            startX =
+                event.touches[0].clientX;
+
+            scrollStart =
+                slider.scrollLeft;
+
+            stopAuto();
+
+        },
+        {passive:true}
+    );
+
+
+
+    slider.addEventListener(
+        "touchmove",
+        function(event){
+
+            if(!dragging) return;
+
+
+            slider.scrollLeft =
+                scrollStart -
+                (
+                    event.touches[0].clientX -
+                    startX
+                );
+
+        },
+        {passive:true}
+    );
+
+
+
+    slider.addEventListener(
+        "touchend",
+        function(event){
+
+            dragging = false;
+
+
+            const dx =
+                event.changedTouches[0].clientX -
+                startX;
+
+
+            if(Math.abs(dx) > 50){
+
+                show(
+                    index +
+                    (
+                        dx < 0
+                        ? 1
+                        : -1
+                    )
+                );
+
+            }
+
+
+            startAuto();
+
+        }
+    );
+
+
+
+    slider.setAttribute(
+        "tabindex",
+        "0"
+    );
+
+
+    slider.addEventListener(
+        "keydown",
+        function(event){
+
+            if(event.key === "ArrowRight"){
+
+                show(index + 1);
+
+                startAuto();
+
+            }
+
+
+            if(event.key === "ArrowLeft"){
+
+                show(index - 1);
+
+                startAuto();
+
+            }
+
+        }
+    );
+
+
+
+    rebuild("All");
+
+    startAuto();
+
+})();
+
+</script>
+
+
+
+<!-- EXISTING WEBSITE JAVASCRIPT -->
+
 <script src="script.js"></script>
+
 
 </body>
 </html>
